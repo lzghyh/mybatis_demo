@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间就是对应的mapper接口 -->
+<mapper namespace="org.tuniu.mybatis.mapper.UserMapper">
+    <resultMap id="JobResultMap" type="lwUser">
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 因为定义了别名，所以这里可以直接使用lwUser-->
+    <select id="selectAllData" resultType="lwUser">
+        select * from lw_user
+    </select>
+
+    <select id="listUserByUserName" parameterType="String" resultType="lwUser">
+        select user_id,user_name from lw_user
+        <where>
+            <if test="userName != null ">
+                user_name=#{userName}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert2" useGeneratedKeys="true" keyProperty="userid">
+        <selectKey keyProperty="userId" resultType="string" order="BEFORE">
+            select RAND() from lw_user limit 1
+        </selectKey>
+        insert into lw_user(user_id,user_name) values (#{userId},#{userName})
+    </insert>
+
+    <select id="selectUserAndJob" resultMap="JobResultMap">
+        select * from lw_user
+    </select>
+    <select id="listUserByTable" resultType="lwUser">
+        select user_id,user_name from ${tableName}
+    </select>
+
+</mapper>

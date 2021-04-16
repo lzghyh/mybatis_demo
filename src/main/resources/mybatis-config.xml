@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties"></properties>
+
+    <settings>
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!--是否开启驼峰命名自动映射-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!--配置实体类的别名,以后就xml中就不需要写全类名了-->
+    <typeAliases>
+        <!--        <typeAlias type="org.tuniu.mybatis.entity.LwUser" alias="LwUser"/>-->
+        <!--也可以一劳永逸,以后需要的时候就去该包下面找,名字默认类名称首字母小写-->
+        <package name="org.tuniu.mybatis.entity"/>
+        <!--也可以通过注解@Alias("LwUser")指定类名称-->
+    </typeAliases>
+    <environments default="dev">
+        <environment id="dev">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+        <environment id="prd">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url"
+                          value="jdbc:mysql://xxx.xxx.xxx.xxx/spring5?serverTimezone=GMT%2B8&amp;useSSL=false"/>
+                <property name="username" value="xxx"/>
+                <property name="password" value="xxx"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--要加载的xml文件-->
+<!--    <mappers>-->
+<!--        <mapper resource="org/tuniu/mybatis/mapping/UserMapper.xml"></mapper>-->
+<!--        <mapper resource="org/tuniu/mybatis/mapping/UserAddressMapper.xml"></mapper>-->
+<!--    </mappers>-->
+<!--<mappers>-->
+<!--    <mapper class="org.tuniu.mybatis.mapper.UserMapper"></mapper>-->
+<!--</mappers>-->
+<mappers>
+    <package name="org.tuniu.mybatis.mapper"/>
+</mappers>
+</configuration>

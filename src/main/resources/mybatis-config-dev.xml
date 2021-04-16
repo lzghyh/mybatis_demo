@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties></properties><!-- 属性 -->
+<typeHandlers>
+    <!-- 自定义typeHandlers全限定类名 -->
+    <typeHandler handler="xxx.xxx.xxx"></typeHandler>
+    <!-- 获取指定包名下的typeHandlers -->
+    <package name="xxx.xxx"/>
+</typeHandlers>
+
+
+</configuration>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间就是对应的mapper接口 -->
+<mapper namespace="org.tuniu.mybatis.mapper.UserAddressMapper">
+
+    <insert id="insertUserAddress" parameterType="org.tuniu.mybatis.entity.UserAddress" useGeneratedKeys="true"
+            keyProperty="id">
+       insert into lw_user_address (address) values (#{address})
+   </insert>
+
+    <insert id="insertUserAddressList" parameterType="list" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into lw_user_address  (address) values
+        <foreach collection="list" item="item"  separator=",">
+            (#{item.address})
+        </foreach>
+    </insert>
+
+
+    <select id="selectUserAddress" resultType="org.tuniu.mybatis.entity.UserAddress">
+        select <include refid="myCloumn"></include> from lw_user_address
+    </select>
+
+    <sql id="myCloumn" >
+        id,address
+    </sql>
+    <select id="selectUserAddress1" resultType="org.tuniu.mybatis.entity.UserAddress">
+        select
+        <include refid="myCloumn1">
+            <property name="prefix1" value="u"/>
+            <property name="prefix2" value="j"/>
+        </include>
+        from lw_user u inner join  lw_user_job j on u.user_id=j.user_id
+    </select>
+
+    <sql id="myCloumn1" >
+        ${prefix1}.user_id,${prefix2}.id
+    </sql>
+    <cache
+            type="com.lonelyWolf.xxx"
+            eviction="FIFO"
+            flushInterval="60000"
+            readOnly="true"
+            size="512"/>
+
+</mapper>
