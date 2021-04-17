@@ -1,9 +1,11 @@
 package org.tuniu.mybatis.entity;
 
-public class LwUser {
+import java.util.List;
+
+public class LwUserListJob {
     private String userId; //用户id
     private String userName; //用户名称
-    private LwUserJob usreJobInfo;//用户工作信息
+    private List<LwUserJob> userJobList;//用户工作信息
 
     public String getUserId() {
         return userId;
@@ -21,20 +23,20 @@ public class LwUser {
         this.userName = userName;
     }
 
-    public LwUserJob getUsreJobInfo() {
-        return usreJobInfo;
+    public List<LwUserJob> getUserJobList() {
+        return userJobList;
     }
 
-    public void setUsreJobInfo(LwUserJob usreJobInfo) {
-        this.usreJobInfo = usreJobInfo;
+    public void setUserJobList(List<LwUserJob> userJobList) {
+        this.userJobList = userJobList;
     }
 
     @Override
     public String toString() {
-        return "LwUser{" +
+        return "LwUserListJob{" +
                 "userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
-                ", usreJobInfo=" + usreJobInfo +
+                ", userJobList=" + userJobList +
                 '}';
     }
 }

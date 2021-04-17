@@ -5,7 +5,25 @@
     <resultMap id="JobResultMap" type="lwUser">
         <result column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <!--这里的JavaType也可以定义别名；property对应LwUser类中的属性名 -->
+        <association property="usreJobInfo" javaType="LwUserJob">
+            <result column="id" property="id" jdbcType="VARCHAR"></result>
+            <result column="user_id" property="userId" jdbcType="VARCHAR"></result>
+            <result column="company_name" property="companyName" jdbcType="VARCHAR"></result>
+            <result column="position" property="position" jdbcType="VARCHAR"></result>
+        </association>
     </resultMap>
+
+<resultMap id="JobResultMap1" type="LwUserListJob">
+    <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+    <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+    <collection property="userJobList" ofType="LwUserJob">
+        <result column="id" property="id" jdbcType="VARCHAR"></result>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"></result>
+        <result column="company_name" property="companyName" jdbcType="VARCHAR"></result>
+        <result column="position" property="position" jdbcType="VARCHAR"></result>
+    </collection>
+</resultMap>
 
     <!-- 因为定义了别名，所以这里可以直接使用lwUser-->
     <select id="selectAllData" resultType="lwUser">
@@ -31,8 +49,48 @@
     <select id="selectUserAndJob" resultMap="JobResultMap">
         select * from lw_user
     </select>
+
     <select id="listUserByTable" resultType="lwUser">
         select user_id,user_name from ${tableName}
     </select>
+
+    <select id="list" parameterType="lwUser" resultType="lwUser">
+        select user_id,user_name from lw_user
+        <where>
+            <if test="userId !=null and userId !=''">
+                and user_id=#{userId}
+            </if>
+            <if test="userName !=null and userName !=''">
+                and user_name=#{userName}
+            </if>
+        </where>
+    </select>
+
+    <select id="list1" resultType="lwUser" parameterType="lwUser">
+        select user_id,user_name from lw_user
+        <where>
+            <choose>
+                <when test="userId ='1'">
+                    and user_id=#{userId}
+                </when>
+                <when test="userId='2'">
+                    and user_id=#{userId}
+                </when>
+                <otherwise>
+                    and user_id=#{userId}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+    <!-- 这里需要修改为resultMap-->
+    <select id="listUserAndJob" resultMap="JobResultMap">
+        select * from lw_user u inner join lw_user_job j on u.user_id=j.user_id
+    </select>
+
+    <!-- 这里需要修改为resultMap-->
+    <select id="listUserAndJob1" resultMap="JobResultMap1">
+        select * from lw_user u inner join lw_user_job j on u.user_id=j.user_id
+    </select>
+
 
 </mapper>
