@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 命名空间就是对应的mapper接口 -->
 <mapper namespace="org.tuniu.mybatis.mapper.UserMapper">
-    <resultMap id="JobResultMap" type="lwUser">
-        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
-        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
-        <!--这里的JavaType也可以定义别名；property对应LwUser类中的属性名 -->
-        <association property="usreJobInfo" javaType="LwUserJob">
-            <result column="id" property="id" jdbcType="VARCHAR"></result>
-            <result column="user_id" property="userId" jdbcType="VARCHAR"></result>
-            <result column="company_name" property="companyName" jdbcType="VARCHAR"></result>
-            <result column="position" property="position" jdbcType="VARCHAR"></result>
-        </association>
-    </resultMap>
+<resultMap id="JobResultMap" type="lwUser">
+    <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+    <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+    <!--这里的JavaType也可以定义别名；property对应LwUser类中的属性名 -->
+    <association property="usreJobInfo" javaType="LwUserJob">
+        <result column="id" property="id" jdbcType="VARCHAR"></result>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"></result>
+        <result column="company_name" property="companyName" jdbcType="VARCHAR"></result>
+        <result column="position" property="position" jdbcType="VARCHAR"></result>
+    </association>
+</resultMap>
 
 <resultMap id="JobResultMap1" type="LwUserListJob">
     <result column="user_id" property="userId" jdbcType="VARCHAR"/>
