@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class MyBatisQueryByParam {
+public class OtherTest {
     public static void main(String[] args) throws IOException {
         String resource = "mybatis-config.xml";
         //1.读取mybatis-config配置文件
@@ -27,22 +27,12 @@ public class MyBatisQueryByParam {
          * 下面这种通过先获取mapper再挑用mapper中方法的方式会更灵活
          */
         UserMapper userMapper = session.getMapper(UserMapper.class);
-        List<LwUserListJob> lwUserListJobs1 = userMapper.selectUserAndJob();//延迟加载(测试N+1问题)
-        System.out.println(null == lwUserListJobs1 ? "" : JSONObject.toJSONString(lwUserListJobs1));
+        List<LwUserListJob> lwUserListJobs1 = userMapper.selectUserAndJob();//延迟加载(解决N+1问题)
+        System.out.println("查询结果的数据："+lwUserListJobs1.size());//不会触发
         System.out.println("--------------------------------------------");
-        session.close();
-        System.exit(0);//退出出程序，不要执行后续的代码
-        List<LwUserListJob> lwUserListJobs = userMapper.listUserAndJob1();//测试一对多查询
-        System.out.println(null == lwUserListJobs ? "" : JSONObject.toJSONString(lwUserListJobs));
+        System.out.println("查询一条数据："+lwUserListJobs1.get(0).getUserJobList());//触发
         System.out.println("--------------------------------------------");
-        List<LwUser> lwUsers = userMapper.listUserAndJob();//一对一查询
-        System.out.println(null == lwUsers ? "" : JSONObject.toJSONString(lwUsers));
-        System.out.println("--------------------------------------------");
-        LwUser userList = userMapper.listUserByUserName("t1");
-        System.out.println(null == userList ? "" : JSONObject.toJSONString(userList));
-
-        List<LwUser> userList2 = userMapper.listUserByTable("lw_user");
-        System.out.println(null == userList2 ? "" : JSONObject.toJSONString(userList2));
+        System.out.println(null == lwUserListJobs1 ? "": JSONObject.toJSONString(lwUserListJobs1));//触发
         session.close();
     }
 }

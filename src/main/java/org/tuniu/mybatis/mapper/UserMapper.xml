@@ -25,6 +25,23 @@
     </collection>
 </resultMap>
 
+    <resultMap id="JobResultMap2" type="LwUserListJob">
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <collection property="userJobList" ofType="LwUserJob" column="user_id" select="selectJob"></collection>
+    </resultMap>
+
+    <!--外部查询-->
+    <select id="selectUserAndJob" resultMap="JobResultMap2">
+        select * from lw_user
+    </select>
+
+    <!--嵌套查询-->
+    <select id="selectJob" resultType="lwUserJob">
+        select * from lw_user_job where user_id=#{userId}
+    </select>
+
+
     <!-- 因为定义了别名，所以这里可以直接使用lwUser-->
     <select id="selectAllData" resultType="lwUser">
         select * from lw_user
@@ -45,10 +62,6 @@
         </selectKey>
         insert into lw_user(user_id,user_name) values (#{userId},#{userName})
     </insert>
-
-    <select id="selectUserAndJob" resultMap="JobResultMap">
-        select * from lw_user
-    </select>
 
     <select id="listUserByTable" resultType="lwUser">
         select user_id,user_name from ${tableName}

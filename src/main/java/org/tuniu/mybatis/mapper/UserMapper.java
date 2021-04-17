@@ -15,7 +15,7 @@ public interface UserMapper {
 
     int insert2(LwUser lwUser);
 
-    List<LwUser> selectUserAndJob();
+    List<LwUserListJob> selectUserAndJob();
 
     List<LwUser> listUserByTable(@Param("tableName") String tableName);
 
