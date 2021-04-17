@@ -36,11 +36,6 @@
     <sql id="myCloumn1" >
         ${prefix1}.user_id,${prefix2}.id
     </sql>
-    <cache
-            type="com.lonelyWolf.xxx"
-            eviction="FIFO"
-            flushInterval="60000"
-            readOnly="true"
-            size="512"/>
+
 
 </mapper>

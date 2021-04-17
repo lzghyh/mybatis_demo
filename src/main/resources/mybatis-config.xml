@@ -42,14 +42,14 @@
     </environments>
 
     <!--要加载的xml文件-->
-<!--    <mappers>-->
-<!--        <mapper resource="org/tuniu/mybatis/mapping/UserMapper.xml"></mapper>-->
-<!--        <mapper resource="org/tuniu/mybatis/mapping/UserAddressMapper.xml"></mapper>-->
-<!--    </mappers>-->
-<!--<mappers>-->
-<!--    <mapper class="org.tuniu.mybatis.mapper.UserMapper"></mapper>-->
-<!--</mappers>-->
-<mappers>
-    <package name="org.tuniu.mybatis.mapper"/>
-</mappers>
+    <!--    <mappers>-->
+    <!--        <mapper resource="org/tuniu/mybatis/mapping/UserMapper.xml"></mapper>-->
+    <!--        <mapper resource="org/tuniu/mybatis/mapping/UserAddressMapper.xml"></mapper>-->
+    <!--    </mappers>-->
+    <!--<mappers>-->
+    <!--    <mapper class="org.tuniu.mybatis.mapper.UserMapper"></mapper>-->
+    <!--</mappers>-->
+    <mappers>
+        <package name="org.tuniu.mybatis.mapper"/>
+    </mappers>
 </configuration>

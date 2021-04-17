@@ -10,14 +10,13 @@ import org.tuniu.mybatis.mapper.UserMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 
 public class MyBatisQueryByParam {
     public static void main(String[] args) throws IOException {
-        String config = "mybatis-config.xml";
+        String resource = "mybatis-config.xml";
         //1.读取mybatis-config配置文件
-        InputStream stream = Resources.getResourceAsStream(config);
+        InputStream stream = Resources.getResourceAsStream(resource);
         //2.//创建SqlSessionFactory对象
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(stream);
         //3.创建SqlSession对象
@@ -27,8 +26,9 @@ public class MyBatisQueryByParam {
          * 下面这种通过先获取mapper再挑用mapper中方法的方式会更灵活
          */
         UserMapper userMapper = session.getMapper(UserMapper.class);
-        LwUser userList = userMapper.listUserByUserName("xiaoli");
+        LwUser userList = userMapper.listUserByUserName("t1");
         System.out.println(null == userList ? "": JSONObject.toJSONString(userList));
+
         List<LwUser> userList2 = userMapper.listUserByTable("lw_user");
         System.out.println(null == userList2 ? "": JSONObject.toJSONString(userList2));
     }
