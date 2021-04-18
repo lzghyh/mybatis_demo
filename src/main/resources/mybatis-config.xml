@@ -13,7 +13,7 @@
         <!--开启延迟加载，默认是关闭的-->
         <setting name="lazyLoadingEnabled" value="true"/>
         <!--切换为CGLIB动态代理-->
-        <setting name="proxyFactory" value="CGLIB" />
+<!--        <setting name="proxyFactory" value="CGLIB" />-->
     </settings>
 
     <!--配置实体类的别名,以后就xml中就不需要写全类名了-->

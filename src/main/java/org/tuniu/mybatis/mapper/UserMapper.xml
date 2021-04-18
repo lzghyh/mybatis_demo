@@ -31,6 +31,11 @@
         <collection property="userJobList" ofType="LwUserJob" column="user_id" select="selectJob"></collection>
     </resultMap>
 
+    <resultMap id="MyUserResultMap" type="lwUser">
+        <result column="user_id" property="userId" jdbcType="VARCHAR" typeHandler="org.tuniu.mybatis.typehandler.MyTypeHandler" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    </resultMap>
+
     <!--外部查询-->
     <select id="selectUserAndJob" resultMap="JobResultMap2">
         select * from lw_user
@@ -47,13 +52,8 @@
         select * from lw_user
     </select>
 
-    <select id="listUserByUserName" parameterType="String" resultType="lwUser">
-        select user_id,user_name from lw_user
-        <where>
-            <if test="userName != null ">
-                user_name=#{userName}
-            </if>
-        </where>
+    <select id="listUserByUserName" parameterType="String" resultMap="MyUserResultMap">
+        select user_id,user_name from lw_user where user_name=#{userName,jdbcType=VARCHAR,typeHandler=org.tuniu.mybatis.typehandler.MyTypeHandler}
     </select>
 
     <insert id="insert2" useGeneratedKeys="true" keyProperty="userid">

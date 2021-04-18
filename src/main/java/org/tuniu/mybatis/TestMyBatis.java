@@ -21,7 +21,7 @@ public class TestMyBatis {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
 //            List<LwUser> list = sqlSession.selectList("org.tuniu.mybatis.mapper.UserMapper.selectAllData");
-            String name =null;
+            String name ="xiaoli";
             List<LwUser> list = sqlSession.selectList("org.tuniu.mybatis.mapper.UserMapper.listUserByUserName",name);
             for (LwUser lwUser : list) {
                 System.out.println(lwUser.toString());
